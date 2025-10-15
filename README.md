@@ -1,11 +1,7 @@
-# Trainer Console v6.1
+# Trainer Console v6.1.1 (Cache-Fix)
 
-Fixes:
-- Prev button hidden on first exercise; Next changes to **Finish Day** on last
-- Menu shows **Cartridges** as clickable items (no prompts)
-- Visible progress: exercise index, **set progress**, and day **progress bar**
-- Menu adds **Routine → Overview** + **History** and **Records**
-- History aggregates per-day set counts and completions
-- Recent Activity shows last 20 actions; CSV export
+- New SW cache name: `tc-v6_1_1`
+- Versioned library: `cartridges.json?v=611`
+- Menu → Maintenance → **Reset App Cache** (unregisters SW + clears caches + reloads)
 
-Deploy via GitHub Pages or run locally with `python3 -m http.server 8080`.
+**If the site still looks old on iPhone:** Settings → Safari → Advanced → Website Data → search your `github.io` domain → Remove, then relaunch.

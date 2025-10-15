@@ -1,5 +1,5 @@
 self.addEventListener('install',e=>{
-  e.waitUntil(caches.open('tc-v6_1').then(c=>c.addAll(['./','./index.html','./icon.png','./manifest.webmanifest','./cartridges.json','./404.html'])));
+  e.waitUntil(caches.open('tc-v6_1_1').then(c=>c.addAll(['./','./index.html','./icon.png','./manifest.webmanifest','./cartridges.json?v=611','./404.html'])));
   self.skipWaiting();
 });
 self.addEventListener('activate',e=>self.clients.claim());

@@ -3,7 +3,7 @@
     {
       "id": "hard2kill",
       "name": "Hard 2 Kill",
-      "version": "v6.1",
+      "version": "v6.1.1",
       "cover": "icon.png",
       "about": "6\u2011day full\u2011body plan focused on hypertrophy, endurance, and resilience. Novice-friendly.",
       "plan": {
@@ -76,53 +76,6 @@
                 "reps": "AMRAP @ RPE 8",
                 "rest": "90s",
                 "rpe": "8"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "mobility-mini",
-      "name": "Mobility Mini",
-      "version": "v1.0",
-      "cover": "icon.png",
-      "about": "10\u2011minute mobility snack for hips/shoulders/spine.",
-      "plan": {
-        "weeks": 4,
-        "days": [
-          {
-            "title": "Day A \u2013 Flow",
-            "exercises": [
-              {
-                "id": "9090",
-                "name": "90/90 Hips",
-                "desc": "Breathe into the stretch; slow switches.",
-                "giphy": "https://giphy.com/gifs/davidlloyduk-stretching-lower-back-dlwdoms-xT0xeJpnrWC4XWblEk",
-                "sets": 2,
-                "reps": "60s",
-                "rest": "0",
-                "rpe": "6"
-              },
-              {
-                "id": "catcow",
-                "name": "Cat\u2011Cow",
-                "desc": "Segment the spine; smooth breaths.",
-                "giphy": "https://giphy.com/gifs/cartoonhangover-freddie-fred-fredderator-11kV6bW1fYP7Zm",
-                "sets": 2,
-                "reps": "60s",
-                "rest": "0",
-                "rpe": "6"
-              },
-              {
-                "id": "shoulder-cars",
-                "name": "Shoulder CARs",
-                "desc": "Slow, controlled circles, no pinch.",
-                "giphy": "https://giphy.com/gifs/shoulder-QaAJtJ2qkRi9m",
-                "sets": 2,
-                "reps": "5/arm",
-                "rest": "0",
-                "rpe": "6"
               }
             ]
           }
