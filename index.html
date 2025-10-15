@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trainer Console</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Trainer Console">
+<meta name="theme-color" content="#0f1115">
+<style>
+:root{
+  --bg:#0b0d10; --ink:#e9edf4; --muted:#a6b1c2; --panel:#12161c; --panel2:#171c24;
+  --accent:#7dd3fc; --accent2:#a78bfa; --success:#7df2d0; --radius:18px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(1200px 800px at -20% -20%, #0ea5e933, transparent),radial-gradient(900px 600px at 120% 0%, #a78bfa22, transparent),var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+
+header{position:sticky;top:0;z-index:60;backdrop-filter:blur(10px);background:linear-gradient(180deg, rgba(10,12,16,.85), rgba(10,12,16,.55));border-bottom:1px solid rgba(255,255,255,.06)}
+.container{max-width:920px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.logo{width:12px;height:12px;border-radius:9999px;background:conic-gradient(from 0deg,var(--accent),var(--success),var(--accent2),var(--accent));box-shadow:0 0 18px #7dd3fc88}
+.brand{font-weight:800;letter-spacing:.2px}
+.spacer{flex:1}
+.btn{appearance:none;border:1px solid rgba(255,255,255,.08);background:var(--panel2);color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer}
+.menu{position:relative}
+.menu-list{position:absolute;right:0;top:46px;min-width:280px;background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:14px;display:none;padding:8px}
+.menu.open .menu-list{display:block}
+.menu h4{margin:8px 8px 6px;font-size:12px;text-transform:uppercase;letter-spacing:.2px;color:var(--muted)}
+.menu button{width:100%;text-align:left;background:transparent;border:0;color:var(--ink);padding:10px 12px;border-radius:10px;cursor:pointer}
+.menu button:hover{background:rgba(255,255,255,.06)}
+
+main{max-width:920px;margin:0 auto;padding:16px}
+
+/* Splash */
+.splash{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(900px 600px at 10% -10%, #0ea5e933, transparent),radial-gradient(900px 600px at 120% 0%, #a78bfa22, transparent),var(--bg);transition:opacity .6s ease;z-index:100}
+.splash.hide{opacity:0;pointer-events:none}
+.splash .card{padding:24px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)), var(--panel);border:1px solid rgba(255,255,255,.08);text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.splash .ver{font-size:12px;color:var(--muted);letter-spacing:.2px;margin-top:6px}
+
+/* Splash actions */
+.actions{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.kick{padding:12px 16px;border-radius:14px;background:var(--panel2);border:1px solid rgba(255,255,255,.08);cursor:pointer;color:var(--ink)}
+
+/* Viewer */
+.viewer{margin-top:16px;padding:18px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)), var(--panel);border:1px solid rgba(255,255,255,.08)}
+.viewer .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.pill{padding:6px 10px;border-radius:9999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px}
+.title{font-size:20px;font-weight:800;letter-spacing:.2px}
+.subtitle{font-size:14px;color:var(--muted);margin-top:2px;line-height:1.7}
+.media{margin-top:12px;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#0e1218;border:1px solid rgba(255,255,255,.1);display:grid;place-items:center}
+.media img,.media video{width:100%;height:100%;object-fit:cover;display:block}
+
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.big{font-size:16px;padding:12px 18px;border-radius:14px}
+.progress{font-size:12px;color:var(--muted)}
+
+.card{padding:18px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)), var(--panel);border:1px solid rgba(255,255,255,.08);margin-bottom:14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select{background:var(--panel2);border:1px solid rgba(255,255,255,.08);color:var(--ink);padding:10px 14px;border-radius:12px}
+
+.badge{display:inline-flex;gap:6px;align-items:center;padding:6px 8px;border-radius:12px;background:rgba(125,242,208,.08);border:1px solid rgba(125,242,208,.25);font-size:12px;color:#bff6e6}
+.small{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="logo"></div>
+    <div class="brand">Trainer Console</div>
+    <div class="spacer"></div>
+    <div class="menu" id="menu">
+      <button class="btn" onclick="menu.classList.toggle('open')">☰</button>
+      <div class="menu-list">
+        <h4>Users</h4>
+        <div id="usersMenu"></div>
+        <button onclick="addUser()">➕ Add User</button>
+        <h4>Cartridges</h4>
+        <div id="cartMenu"></div>
+        <h4>Records</h4>
+        <button onclick="openRecords()">View Recent Records</button>
+        <button onclick="exportCSV()">Export CSV</button>
+        <h4>Help</h4>
+        <button onclick="toggleHelp()">What is RPE?</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Splash -->
+<div class="splash" id="splash">
+  <div class="card">
+    <div style="font-weight:800;letter-spacing:.3px;font-size:22px">Trainer Console</div>
+    <div class="ver">Version 6.0</div>
+    <div class="actions">
+      <button class="kick" onclick="enterApp()">Enter</button>
+    </div>
+    <div class="small" style="margin-top:8px">Use the menu (☰) to pick user and cartridge.</div>
+  </div>
+</div>
+
+<main>
+  <section class="card" id="splashCard">
+    <div class="row">
+      <div class="badge" id="userBadge">User: Default</div>
+      <div class="badge" id="cartBadge">Cartridge: —</div>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label>Day</label>
+      <select id="daySel"></select>
+      <button class="btn" onclick="start()">Start</button>
+    </div>
+  </section>
+
+  <section class="viewer" id="viewer" hidden>
+    <div class="title" id="exTitle"></div>
+    <div class="subtitle" id="exDesc"></div>
+    <div class="media" id="exMedia"><span class="pill">Loading demo…</span></div>
+    <div class="meta">
+      <span class="pill" id="exSets"></span>
+      <span class="pill" id="exReps"></span>
+      <span class="pill" id="exRest"></span>
+      <span class="pill" id="exRpe"></span>
+    </div>
+    <div class="nav">
+      <button class="btn big" id="prevBtn">← Prev</button>
+      <div class="progress" id="progress"></div>
+      <button class="btn big" id="nextBtn">Next →</button>
+    </div>
+  </section>
+
+  <section class="card" id="records" hidden>
+    <div class="title">Recent Records</div>
+    <div class="small">Shows last 20 saved sets for the current user and cartridge.</div>
+    <div id="recordsList" style="margin-top:10px"></div>
+  </section>
+
+  <div class="card small" id="helpBox" hidden>
+    <strong>RPE (Rate of Perceived Exertion)</strong> is a 1–10 effort scale. Use 6–10 here: 6 = easy, 8 = ~2 reps left, 9 = ~1 rep left, 10 = max. If a set feels like RPE 6, add weight next time; if it’s 9–10 and shouldn’t be, reduce a bit.
+  </div>
+</main>
+
+<script>
+let LIB=null; let cartIdx=0, dayIdx=0, exIdx=0; let current=null;
+let USERS = JSON.parse(localStorage.getItem('tc_users')||'["Default"]');
+let CUR_USER = localStorage.getItem('tc_cur_user') || USERS[0];
+let LOGS = JSON.parse(localStorage.getItem('tc_logs')||'{}');
+function saveLogs(){ localStorage.setItem('tc_logs', JSON.stringify(LOGS)); }
+function logKey(){ return CUR_USER; }
+function cartId(){ return current?.id || 'unknown'; }
+
+function enterApp(){ document.getElementById('splash').classList.add('hide'); }
+
+function renderUsersMenu(){
+  const box=document.getElementById('usersMenu'); box.innerHTML='';
+  USERS.forEach(u=>{
+    const b=document.createElement('button'); b.textContent = (u===CUR_USER? '✓ ':'') + u;
+    b.onclick=()=>{ CUR_USER=u; localStorage.setItem('tc_cur_user', CUR_USER); updateBadges(); renderUsersMenu(); renderRecords(); };
+    box.appendChild(b);
+  });
+}
+function addUser(){
+  const name = prompt('New user name');
+  if(!name) return;
+  if(!USERS.includes(name)){ USERS.push(name); localStorage.setItem('tc_users', JSON.stringify(USERS)); }
+  CUR_USER = name; localStorage.setItem('tc_cur_user', CUR_USER);
+  renderUsersMenu(); updateBadges();
+}
+function renderCartMenu(){
+  const box=document.getElementById('cartMenu'); box.innerHTML='';
+  LIB.cartridges.forEach((c,i)=>{
+    const b=document.createElement('button'); b.textContent = (i===cartIdx? '✓ ':'') + c.name;
+    b.onclick=()=>{ setCartridge(i); document.getElementById('menu').classList.remove('open'); };
+    box.appendChild(b);
+  });
+}
+
+async function loadLibrary(){
+  const res = await fetch('./cartridges.json', {cache:'no-store'});
+  LIB = await res.json();
+  setCartridge(0);
+  renderUsersMenu(); renderCartMenu();
+}
+function setCartridge(idx){
+  cartIdx = idx; current = LIB.cartridges[cartIdx]; dayIdx=0; exIdx=0; populateDaySelector(); updateBadges(); renderExercise();
+}
+function populateDaySelector(){
+  const sel = document.getElementById('daySel'); sel.innerHTML='';
+  const days = current.plan.days || [];
+  for(let i=0;i<days.length;i++){ const o=document.createElement('option'); o.value=i; o.textContent = `Day ${i+1} — ${days[i].title}`; sel.appendChild(o); }
+  sel.value = dayIdx; sel.onchange = e=>{ dayIdx = parseInt(e.target.value); exIdx=0; renderExercise(); };
+}
+function updateBadges(){
+  document.getElementById('userBadge').textContent = 'User: ' + CUR_USER;
+  document.getElementById('cartBadge').textContent = 'Cartridge: ' + (current?.name || '—');
+}
+function start(){ document.getElementById('viewer').hidden=false; window.scrollTo({top:0,behavior:'smooth'}); }
+function getCurrentExercise(){
+  const day = current?.plan?.days?.[dayIdx] || {exercises:[]};
+  return { ex: day.exercises?.[exIdx] || null, count: day.exercises?.length||0, day };
+}
+async function resolveGiphy(url){
+  try{ const r = await fetch(`https://giphy.com/services/oembed?url=${encodeURIComponent(url)}`);
+       if(!r.ok) throw new Error('oEmbed failed'); const data = await r.json(); return data.url || data.image || null; }
+  catch(e){ console.warn(e); return null; }
+}
+async function renderExercise(){
+  const {ex, count, day} = getCurrentExercise();
+  const titleEl = document.getElementById('exTitle'); const descEl = document.getElementById('exDesc');
+  const mediaEl = document.getElementById('exMedia'); const setsEl = document.getElementById('exSets');
+  const repsEl = document.getElementById('exReps'); const restEl = document.getElementById('exRest'); const rpeEl = document.getElementById('exRpe'); const progEl = document.getElementById('progress');
+
+  if(!ex){ titleEl.textContent='No exercise'; descEl.textContent=''; mediaEl.innerHTML=''; setsEl.textContent=''; repsEl.textContent=''; restEl.textContent=''; rpeEl.textContent=''; progEl.textContent=''; return; }
+  titleEl.textContent = `${day.title} — ${ex.name}`; descEl.textContent = ex.desc||''; setsEl.textContent=`Sets ${ex.sets||3}`; repsEl.textContent=`Reps ${ex.reps||8}`; restEl.textContent=`Rest ${ex.rest||'60s'}`; rpeEl.textContent=`RPE ${ex.rpe||'7–8'}`; progEl.textContent=`Exercise ${exIdx+1} / ${count}`;
+
+  mediaEl.innerHTML = '<span class="pill">Loading demo…</span>';
+  let url = ex.gif; if(ex.giphy){ const resolved = await resolveGiphy(ex.giphy); if(resolved) url = resolved; }
+  if(url){ if(url.endsWith('.mp4')) mediaEl.innerHTML=`<video src="${url}" autoplay muted loop playsinline></video>`; else mediaEl.innerHTML=`<img src="${url}" alt="${ex.name} demo" loading="lazy">`; }
+  else{ mediaEl.innerHTML='<span class="pill">No media</span>'; }
+
+  // Save lightweight history record
+  const entry = { t: Date.now(), user: CUR_USER, cart: cartId(), day: dayIdx+1, ex: ex.name };
+  LOGS[logKey()] = LOGS[logKey()] || {}; LOGS[logKey()][cartId()] = LOGS[logKey()][cartId()] || [];
+  const list = LOGS[logKey()][cartId()];
+  if(list.length==0 || list[list.length-1].ex!==entry.ex || Date.now()-list[list.length-1].t > 30000){ list.push(entry); if(list.length>500) list.shift(); localStorage.setItem('tc_logs', JSON.stringify(LOGS)); }
+}
+
+// nav + gestures
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('prevBtn').addEventListener('click', ()=>{ exIdx = Math.max(0, exIdx-1); renderExercise(); });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{ const {count}=getCurrentExercise(); exIdx = Math.min(count-1, exIdx+1); renderExercise(); });
+  const view = document.getElementById('viewer'); let sx=null, sy=null;
+  view.addEventListener('touchstart', e=>{ const t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; }, {passive:true});
+  view.addEventListener('touchend', e=>{ const t=e.changedTouches[0]; const dx=t.clientX-sx, dy=t.clientY-sy; if(Math.abs(dx)>50 && Math.abs(dy)<40){ if(dx<0) document.getElementById('nextBtn').click(); else document.getElementById('prevBtn').click(); } }, {passive:true});
+});
+
+// Records
+function openRecords(){ renderRecords(); document.getElementById('records').hidden=false; document.getElementById('records').scrollIntoView({behavior:'smooth'}); }
+function renderRecords(){
+  const box=document.getElementById('recordsList'); box.innerHTML='';
+  const arr = (LOGS[logKey()] && LOGS[logKey()][cartId()]) ? LOGS[logKey()][cartId()] : [];
+  const recent = arr.slice(-20).reverse();
+  if(recent.length===0){ box.innerHTML='<div class="small">No records yet.</div>'; return; }
+  recent.forEach(r=>{
+    const d = new Date(r.t); const row=document.createElement('div'); row.className='row small';
+    row.innerHTML = `<span class="pill">${d.toLocaleString()}</span> <span>Day ${r.day}</span> <strong style="margin-left:6px">${r.ex}</strong>`;
+    box.appendChild(row);
+  });
+}
+function exportCSV(){
+  const arr = (LOGS[logKey()] && LOGS[logKey()][cartId()]) ? LOGS[logKey()][cartId()] : [];
+  let csv = 'timestamp,user,cartridge,day,exercise\n';
+  arr.forEach(r=>{ csv += `${new Date(r.t).toISOString()},${r.user},${r.cart},${r.day},"${r.ex.replace(/"/g,'""')}"\n`; });
+  const a=document.createElement('a'); a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.download='trainer-records.csv'; a.click();
+}
+
+function toggleHelp(){ const box=document.getElementById('helpBox'); box.hidden=!box.hidden; }
+
+if('serviceWorker' in navigator){ window.addEventListener('load', ()=> navigator.serviceWorker.register('sw.js')); }
+loadLibrary().then(()=>{ updateBadges(); }).catch(err=>console.error(err));
+</script>
+</body>
+</html>

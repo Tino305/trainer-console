@@ -1,0 +1,133 @@
+{
+  "cartridges": [
+    {
+      "id": "hard2kill",
+      "name": "Hard 2 Kill",
+      "version": "v6.0",
+      "cover": "icon.png",
+      "about": "6\u2011day full\u2011body plan focused on hypertrophy, endurance, and resilience. Novice-friendly.",
+      "plan": {
+        "weeks": 8,
+        "days": [
+          {
+            "title": "Day 1 \u2013 Hinge + Push",
+            "exercises": [
+              {
+                "name": "Kettlebell Swing",
+                "desc": "Hip hinge power. Neutral spine, snap hips.",
+                "giphy": "https://giphy.com/gifs/CROSSFITBORAN-kettlebell-swing-7y223bI2TnoRilynMe",
+                "sets": 5,
+                "reps": "10",
+                "rest": "60\u201390s",
+                "rpe": "7\u20138",
+                "id": "kb-swing"
+              },
+              {
+                "name": "1\u2011Arm KB Bench / Floor Press",
+                "desc": "Pack the shoulder; slight pause on chest.",
+                "giphy": "https://giphy.com/gifs/GYMREAPERS-monica-gymreapers-granda-5hyK97UtGd7YaGBrVh",
+                "sets": 4,
+                "reps": "8/arm",
+                "rest": "90s",
+                "rpe": "7\u20138",
+                "id": "kb-press"
+              },
+              {
+                "name": "Suitcase Carry",
+                "desc": "Walk tall, ribcage down, no leaning.",
+                "giphy": "https://giphy.com/gifs/hockeytraining-3oKIPz1pK2Mg42bUk0",
+                "sets": 4,
+                "reps": "30\u201340m/side",
+                "rest": "60s",
+                "rpe": "7",
+                "id": "suitcase-carry"
+              }
+            ]
+          },
+          {
+            "title": "Day 2 \u2013 Squat + Pull",
+            "exercises": [
+              {
+                "name": "Goblet/Front Squat",
+                "desc": "Knees track; brace; full foot.",
+                "giphy": "https://giphy.com/gifs/CROSSFITBORAN-dumbbell-goblet-squat-MdRI2tmI5e7HX7P76U",
+                "sets": 4,
+                "reps": "8\u201310",
+                "rest": "90s",
+                "rpe": "7\u20138",
+                "id": "goblet-squat"
+              },
+              {
+                "name": "KB Romanian Deadlift",
+                "desc": "Soft knees; hinge to mid\u2011shin; feel hamstrings.",
+                "giphy": "https://giphy.com/gifs/kettlebell-romanian-deadlift-rmRt7oSdRO4hK6kVxU",
+                "sets": 4,
+                "reps": "8\u201310",
+                "rest": "90s",
+                "rpe": "7\u20138",
+                "id": "kb-rdl"
+              },
+              {
+                "name": "Push\u2011Ups",
+                "desc": "Straight line head\u2011to\u2011heels; elevate hands if needed.",
+                "giphy": "https://giphy.com/gifs/YourHouseFitness-chest-workout-push-up-variation-deficit-o81SS6r5Doy81ecomn",
+                "sets": 3,
+                "reps": "AMRAP @ RPE 8",
+                "rest": "90s",
+                "rpe": "8",
+                "id": "pushups"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mobility-mini",
+      "name": "Mobility Mini",
+      "version": "v1.0",
+      "cover": "icon.png",
+      "about": "10\u2011minute mobility snack for hips/shoulders/spine.",
+      "plan": {
+        "weeks": 4,
+        "days": [
+          {
+            "title": "Day A \u2013 Flow",
+            "exercises": [
+              {
+                "name": "90/90 Hips",
+                "desc": "Breathe into the stretch; slow switches.",
+                "giphy": "https://giphy.com/gifs/davidlloyduk-stretching-lower-back-dlwdoms-xT0xeJpnrWC4XWblEk",
+                "sets": 2,
+                "reps": "60s",
+                "rest": "0",
+                "rpe": "6",
+                "id": "9090"
+              },
+              {
+                "name": "Cat\u2011Cow",
+                "desc": "Segment the spine; smooth breaths.",
+                "giphy": "https://giphy.com/gifs/cartoonhangover-freddie-fred-fredderator-11kV6bW1fYP7Zm",
+                "sets": 2,
+                "reps": "60s",
+                "rest": "0",
+                "rpe": "6",
+                "id": "catcow"
+              },
+              {
+                "name": "Shoulder CARs",
+                "desc": "Slow, controlled circles, no pinch.",
+                "giphy": "https://giphy.com/gifs/shoulder-QaAJtJ2qkRi9m",
+                "sets": 2,
+                "reps": "5/arm",
+                "rest": "0",
+                "rpe": "6",
+                "id": "shoulder-cars"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
